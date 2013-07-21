@@ -1,5 +1,6 @@
 ;;option+command+lでREPLにファイルをロード
 ;;REPLから適当に呼び出し
+;;testを呼び出すなら(smaple/test)でおけ
 
 (ns sample)
 
@@ -50,9 +51,28 @@
   (println #{:name1 :name2 :name3})
   ;;マップ
   (println {"name1" "data1","name2" "data2"})
-  ;;ベクタ
+  ;;ベクタ;;
   (println [1 2 3 4])
   ;; :xxx
   ;; はシンボルでなくてキーワードらしい。違いがどうあるのかはしらん
+  
+  ;;割り算は有理数になる
+  (println (/ 7 22))
+  ;;->7/22
+  ;;少数が欲しいなら明示的に渡す
+  (println (/ 7 22.0))
+  ;;->0.3181818181818182
+  
+  ;;bigdecimalを使うならMをつける
+  (println 1000M)
+  
+  ;;""で文字列リテラルだが改行を含んでも大丈夫
+  (println "aaaaa
+            あいうえお")
+  
+  ;;どうも.xxxでメソッド呼び出し
+  ;;第一引数がselfになるみたい
+  (println (.toUpperCase "hello"))
+  
   )
 
