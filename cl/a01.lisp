@@ -4,5 +4,7 @@
 
 ;;quicklispは設定済みだからql:quickloadで読み込める
 
+;;(ql:update-all-dists)で月一は更新すること
+
 
 
