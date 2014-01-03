@@ -2,23 +2,25 @@
     '(member anonymous login))
 
 (defclass <userInfo> ()
-  ((userId)
-   (userName)
-   (loginStatus)))
+  ((id)
+   (email)
+   (display-name)
+   (login-status)))
 
-(defmethod set-slots((o <userInfo>) id name status)
-  (with-slots (userId userName loginStatus) o
-	     (setf userId id)
-	     (setf userName name)
-	     (setf loginStatus status)
-	     o))
+(defmethod set-slots((o <userInfo>) pid pemail pdisplay-name plogin-status)
+  (with-slots (id email display-name login-status) o
+    (setf id pid)
+    (setf email pemail)
+    (setf display-name pdisplay-name)
+    (setf login-status plogin-status)
+    o))
 
 (defmethod to_s((o <userInfo>))
-  (with-slots (userId userName loginStatus) o
-    (format t "~A ~A ~A ~A" o userId userName loginStatus)
+  (with-slots (id email display-name login-status) o
+    (format t "~A ~A ~A ~A ~A" o id email display-name login-status)
     o))
 
 (defun create<userInfo> () 
   (let ((o (make-instance '<userInfo>)))
-    (set-slots o nil "ななしさん" 'anonymous)))
+    (set-slots o nil nil "ななしさん" 'anonymous)))
 

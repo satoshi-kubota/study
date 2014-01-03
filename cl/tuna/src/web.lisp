@@ -1,13 +1,13 @@
 (in-package :cl-user)
 (defpackage tuna.web
   (:use :cl
-	:in
 	:cl-dbi
         :caveman2
         :caveman2.db
         :tuna.config
         :tuna.view
-	:tuna.a)
+	:tuna-dao-user-dao)
+	
   (:export :*web*))
 (in-package :tuna.web)
 
@@ -47,10 +47,12 @@
 ;;                  (ironclad:ascii-string-to-byte-array "password")))
 
 (defroute ("/ajax/signup" :method :get) (&key |email| |passwd| |passwd_conf|)
-  (let* ((con (connect-db :maindb))
-	 (q (prepare con "insert into usertb values (?,?,?,?,?,?)"))
-	 (hp (
-	 (render #P"signup.tmpl"))))
+  )
+
+
+
+
+
 
 ;CL-USER> (cl-base64:usb8-array-to-base64-string (ironclad:digest-sequence :sha256 (babel:string-to-octets "あいうえお")))
 ;"/bSB6pVv22VK/MMnz/m2JpZrKr2rw/Pm28sWZ6iI7Zo="
@@ -71,9 +73,6 @@
 ;;  (print pageId)
 ;;  (print "hello")
 ;;  (render-json `('pageId ,(render #P"index.tmpl"))))
-
-(defun test()
-    "日本語日本語")
 
 ;; Error pages
 

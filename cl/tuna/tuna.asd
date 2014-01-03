@@ -12,6 +12,9 @@
                :envy
                :osicat
                :cl-ppcre
+	       :babel
+	       :cl-base64
+	       :ironclad
 
                ;; HTML Template
                :cl-emb
@@ -21,13 +24,13 @@
                :trivial-types
 
                ;; for CL-DBI
-               :caveman2-db)
+               :caveman2-db
+	       :tuna-dao)
   :components ((:module "src"
                 :components
-                ((:file "a")
-		 (:file "tuna" :depends-on ("config"))
+                ((:file "tuna" :depends-on ("config"))
                  (:file "web" :depends-on ("view"))
-                 (:file "view" :depends-on ("config" "a"))
+                 (:file "view")
                  (:file "config"))))
   :description ""
   :in-order-to ((test-op (load-op tuna-test))))

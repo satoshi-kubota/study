@@ -19,8 +19,6 @@
   (:import-from :trivial-types
                 :property-list-p
                 :association-list-p)
-  (:import-from :tuna.a
-		:testtesttest)
   (:export :*default-layout-path*
            :render
            :render-json
