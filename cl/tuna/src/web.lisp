@@ -6,8 +6,9 @@
         :caveman2.db
         :tuna.config
         :tuna.view
-	:tuna-dao-user-dao)
-	
+	:tuna-page-base
+	:tuna-page-top
+	:tuna-page-render-info)
   (:export :*web*))
 (in-package :tuna.web)
 
@@ -22,16 +23,19 @@
 
 
 (defroute "/tuna" nil
-  (with-layout (:title "ツナ")
-    (render #P"init.tmpl" '(:pageId "top"))))
+  (let* ((p (make-instance 'tuna-page-top:<top>))
+	 (r (page-make-render-info p nil nil)))
+    (with-slots (ri-content-id ri-title) r
+      (with-layout (:title ri-title :page-id ri-content-id)
+	(render #P"init.tmpl" '(page-id "top"))))))
 
 (defroute ("/tuna/login" :method :get) nil
-  (with-layout (:title "ログイン")
-    (render #P"init.tmpl" '(:pageId "login"))))
+  (with-layout (:title "ログイン" :page-id "login")
+    (render #P"init.tmpl" '(page-id "login"))))
 
 (defroute ("/tuna/signup" :method :get) nil
   (with-layout (:title "サインアップ")
-    (render #P"init.tmpl" '(:pageId "signup"))))
+    (render #P"init.tmpl" '(page-id "signup"))))
 
 (defroute ("/ajax/getContent/top" :method :get) nil
   (render #P"index.tmpl"))
@@ -66,7 +70,7 @@
 ;;	 (q (prepare con "insert into usertb values (?,?,?,?,?,?)"))
 ;;	 (render #P"signup.tmpl"))))
 
-;;(defroute ("/ajax/getContent/:pageId" :method :get) (&key (pageId "top"))
+;;(defroute ("/ajax/getContent/page-id" :method :get) (&key (pageId "top"))
 ;;  (render #P"login.tmpl" `(:dt ,(test))))
 
 ;;  (testtesttest)

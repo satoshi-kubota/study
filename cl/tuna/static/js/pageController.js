@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    var id = $("#pageId").val();
+    var id = $("#page-id").val();
 
     $.ajax({
 	type:"GET",
@@ -10,7 +10,5 @@ $(document).ready(function(){
 	    $("#initContent").hide(200);
 	}
     });
-
-    
 });
 

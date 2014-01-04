@@ -25,7 +25,7 @@
 
                ;; for CL-DBI
                :caveman2-db
-	       :tuna-dao)
+	       :tuna-page)
   :components ((:module "src"
                 :components
                 ((:file "tuna" :depends-on ("config"))
