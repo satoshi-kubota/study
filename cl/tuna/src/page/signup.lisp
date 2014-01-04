@@ -1,21 +1,21 @@
 (in-package :cl-user)
-(defpackage tuna-page-top
+(defpackage tuna-page-signup
   (:use
    :cl
    :tuna-dao-user-dao
    :tuna-model-user
    :tuna-page-render-info
    :tuna-page-base)
-  (:export :<top>))
-(in-package :tuna-page-top)
+  (:export :<signup>))
+(in-package :tuna-page-signup)
 
-(defclass <top> (<base>)
+(defclass <signup> (<base>)
   ())
 
-(defmethod initialize-instance :after((o <top>) &rest initargs)
+(defmethod initialize-instance :after((o <signup>) &rest initargs)
   (with-slots (page-page-id page-title) o
-    (setf page-page-id "top")
-    (setf page-title "ツナ")))
+    (setf page-page-id "signup")
+    (setf page-title "サインアップ")))
 
 (defmethod page-validate-session(o session)
   (print o)

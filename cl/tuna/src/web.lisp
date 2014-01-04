@@ -8,6 +8,7 @@
         :tuna.view
 	:tuna-page-base
 	:tuna-page-top
+	:tuna-page-signup
 	:tuna-page-render-info)
   (:export :*web*))
 (in-package :tuna.web)
@@ -21,21 +22,40 @@
 ;;
 ;; Routing rules
 
+(defun process-page(type &rest prms)
+  (let
+      ((o (make-instance type))
+       (sess *session*))
+    (let ((errors (page-validate-session o sess)))
+      (if (not errors)
+	  (progn 
+	    (page-process o *session* prms)
+	    (page-make-render-info o sess prms))))))
 
 (defroute "/tuna" nil
-  (let* ((p (make-instance 'tuna-page-top:<top>))
-	 (r (page-make-render-info p nil nil)))
-    (with-slots (ri-content-id ri-title) r
-      (with-layout (:title ri-title :page-id ri-content-id)
-	(render #P"init.tmpl" '(page-id "top"))))))
+  (let ((r (process-page 'tuna-page-top:<top>)))
+    (with-slots (ri-page-id ri-title) r
+      (with-layout (:title ri-title :page-id ri-page-id)
+  	(render #P"init.tmpl" `(page-id ,ri-page-id))))))
+
+  ;; (let* ((p (make-instance 'tuna-page-top:<top>))
+  ;; 	 (r (page-make-render-info p nil nil)))
+  ;;   (with-slots (ri-page-id ri-title) r
+  ;;     (with-layout (:title ri-title :page-id ri-page-id)
+  ;; 	(render #P"init.tmpl" '(page-id "top"))))))
 
 (defroute ("/tuna/login" :method :get) nil
   (with-layout (:title "ログイン" :page-id "login")
     (render #P"init.tmpl" '(page-id "login"))))
 
 (defroute ("/tuna/signup" :method :get) nil
-  (with-layout (:title "サインアップ")
-    (render #P"init.tmpl" '(page-id "signup"))))
+  (let ((r (process-page 'tuna-page-signup:<signup>)))
+    (with-slots (ri-page-id ri-title) r
+      (with-layout (:title ri-title :page-id ri-page-id)
+  	(render #P"init.tmpl" `(page-id ,ri-page-id))))))
+
+  ;; (with-layout (:title "サインアップ")
+  ;;   (render #P"init.tmpl" '(page-id "signup"))))
 
 (defroute ("/ajax/getContent/top" :method :get) nil
   (render #P"index.tmpl"))
@@ -50,7 +70,18 @@
 ;;               (ironclad:digest-sequence :sha1
 ;;                  (ironclad:ascii-string-to-byte-array "password")))
 
-(defroute ("/ajax/signup" :method :get) (&key |email| |passwd| |passwd_conf|)
+(defroute ("/ajax/signup" :method :get) (&rest prms)
+  (print prms)
+  (with-layout (:title "ログイン" :page-id "login")
+    (render #P"init.tmpl" '(page-id "login"))))
+
+
+;; (defroute ("/ajax/signup" :method :get) (&key |email| |passwd| |passwd_conf|)
+;;   (print |email|)
+;;   )
+
+(defroute ("/ajax/aaa" :method :get) (&rest prms)
+  (print prms)
   )
 
 

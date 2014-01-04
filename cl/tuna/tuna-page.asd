@@ -14,6 +14,8 @@
                 ((:file "base")
 		 (:file "json-info")
 		 (:file "render-info")
-		 (:file "top"))))
+		 (:file "top")
+		 (:file "signup")
+		 )))
   :description "")
 
